@@ -7,9 +7,12 @@ from flask import (
     url_for,
     redirect
 )
+import requests
+from requests import ConnectionError, HTTPError
 import page_analyzer.db as db
 from page_analyzer.verification import validate
 import os
+from page_analyzer.page_content import get_content
 
 
 app = Flask(__name__)
@@ -46,7 +49,9 @@ def post_urls():
     else:
         db.add_url(validate_url)
         flash('URL успешно добавлен', 'success')
+
     url_id = db.get_url_id(validate_url)
+
     return redirect(url_for('url_page', id=url_id))
 
 
@@ -59,16 +64,41 @@ def get_urls():
 
 
 @app.route('/urls/<int:id>')
-def url_page(url_id):
+def url_page(id):
 
-    url_info = db.get_url_data(url_id)
+    url_info = db.get_url_data(id)
+    url_check = db.get_url_check(id)
     massage = get_flashed_messages(with_categories=True)
 
     if not url_info:
         return render_template('errors/404.html'), 404
 
     return render_template('page.html', massage=massage,
-                           url=url_info)
+                           url=url_info, check=url_check)
+
+
+@app.post('/urls/<int:id>/checks')
+def check_url(id):
+
+    url_name = db.get_url_data(id).get('name')
+    url_id = db.get_url_data(id).get('id')
+
+    try:
+        request = requests.get(url_name)
+        request.raise_for_status()
+
+    except (ConnectionError, HTTPError):
+        flash('Произошла ошибка при проверке', 'warning')
+        return redirect(url_for('url_page', id=url_id))
+
+    h1, title, description = get_content(request)
+    status = request.status_code
+    db.add_check_url(url_id, status, h1, title, description)
+    flash('Страница успешно добавлена', 'success')
+
+    return redirect(url_for('url_page', id=url_id))
+
+
 
 
 @app.errorhandler(404)
