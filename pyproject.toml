@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Web page analyzer for SEO acceptance"
 authors = ["Nikita Grishin <mr_obey@mail.ru>"]
 readme = "README.md"
-packages = [{include = "hexlet-code"}]
+packages = [{include = "page_analyzer"}]
 classifiers = [
     "Programming Language :: Python :: 3.10",
     "Operating System :: Ubuntu",
