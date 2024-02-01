@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 
-psql -d $DATABASE_URL -f database.sql
+make install && psql -a -d $DATABASE_URL -f database.sql

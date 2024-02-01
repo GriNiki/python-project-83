@@ -1,9 +1,8 @@
 install:
 		poetry install
 
-setup:
-	make install
-	sh ./build.sh
+build:
+	./build.sh
 
 
 dev:
