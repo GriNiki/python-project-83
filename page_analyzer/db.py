@@ -17,7 +17,8 @@ def add_url(url):
                     INSERT INTO urls
                     (name, created_at)
                     VALUES (%s, %s)
-                    ''', (url, date.today(),))
+                    ''', (url, date.today(),)
+                        )
 
 
 def get_url_name():
@@ -38,7 +39,8 @@ def get_url_id(name):
         with connect_db.cursor() as cur:
             cur.execute('''
                     SELECT id FROM urls WHERE name = %s
-                    ''', (name,))
+                    ''', (name,)
+                        )
             row = cur.fetchone()[0]
 
         return row
@@ -50,7 +52,8 @@ def get_url_data(url_id):
         with connect_db.cursor(cursor_factory=DictCursor) as cur:
             cur.execute('''
                     SELECT * FROM urls WHERE id = %s
-                    ''', (url_id,))
+                    ''', (url_id,)
+                        )
             row = cur.fetchone()
 
         return row
@@ -66,7 +69,7 @@ def get_all_urls():
                     urls.name AS name,
                     url_checks.status_code AS status_code,
                     url_checks.created_at AS created_at
-                    FROM urls LEFT JOIN url_checks 
+                    FROM urls LEFT JOIN url_checks
                     ON urls.id = url_checks.url_id
                     ORDER BY urls.id, url_checks.created_at DESC;
                     ''')
@@ -83,8 +86,9 @@ def add_check_url(url_id, status_code, h1, title, description):
                     INSERT INTO url_checks
                     (url_id, status_code, h1, title, description, created_at)
                     VALUES (%s, %s, %s, %s, %s, %s);
-                    ''', (url_id, status_code, h1, title, description, date.today(),))
-         
+                    ''', (url_id, status_code, h1, title, description, date.today(),)
+                        )
+
 
 def get_url_check(url_id):
 
@@ -92,7 +96,8 @@ def get_url_check(url_id):
         with connect_db.cursor(cursor_factory=DictCursor) as cur:
             cur.execute('''
                     SELECT * FROM url_checks WHERE url_id = %s
-                    ''', (url_id,))
+                    ''', (url_id,)
+                        )
             row = cur.fetchone()
 
         return row

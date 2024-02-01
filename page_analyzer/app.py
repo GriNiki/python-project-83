@@ -84,21 +84,19 @@ def check_url(id):
     url_id = db.get_url_data(id).get('id')
 
     try:
-        request = requests.get(url_name)
-        request.raise_for_status()
+        req = requests.get(url_name)
+        req.raise_for_status()
 
     except (ConnectionError, HTTPError):
         flash('Произошла ошибка при проверке', 'warning')
         return redirect(url_for('url_page', id=url_id))
 
-    h1, title, description = get_content(request)
-    status = request.status_code
+    h1, title, description = get_content(req)
+    status = req.status_code
     db.add_check_url(url_id, status, h1, title, description)
     flash('Страница успешно добавлена', 'success')
 
     return redirect(url_for('url_page', id=url_id))
-
-
 
 
 @app.errorhandler(404)
