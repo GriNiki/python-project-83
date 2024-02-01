@@ -13,6 +13,10 @@ import page_analyzer.db as db
 from page_analyzer.verification import validate
 import os
 from page_analyzer.page_content import get_content
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 
 app = Flask(__name__)
