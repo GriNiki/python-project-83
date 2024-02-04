@@ -42,7 +42,7 @@ def post_urls():
             'index.html',
             url=url,
             messages=get_flashed_messages(with_categories=True)
-        )
+        ), 422
 
     validate_url = validate(url)
     urls = db.get_url_name()
