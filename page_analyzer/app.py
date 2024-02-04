@@ -48,11 +48,11 @@ def post_urls():
     urls = db.get_url_name()
 
     if validate_url in urls:
-        flash('URL уже добавлен', 'warning')
+        flash('Страница уже существует', 'warning')
 
     else:
         db.add_url(validate_url)
-        flash('URL успешно добавлен', 'success')
+        flash('Страница успешно добавлена', 'success')
 
     url_id = db.get_url_id(validate_url)
 
@@ -98,7 +98,7 @@ def check_url(id):
     h1, title, description = get_content(req)
     status = req.status_code
     db.add_check_url(url_id, status, h1, title, description)
-    flash('Страница успешно добавлена', 'success')
+    flash('Страница успешно проверена', 'success')
 
     return redirect(url_for('url_page', id=url_id))
 
