@@ -1,39 +1,32 @@
 name: Test App
+
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  - push
+  - pull_request
 env:
-  DATABASE_URL: postgresql://postgres:password1@localhost:5432/page_analyzer
-  SECRET_KEY: $SECRET_KEY
+  SECRET_KEY: ${{ secrets.SECRET_KEY }}
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
 jobs:
   build:
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:latest
-        ports:
-          - 5432:5432
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: password1
-          POSTGRES_DB: page_analyzer
+
+    strategy:
+      matrix:
+        python-version: [3.10]
     steps:
       - uses: actions/checkout@v3
-      - name: set up Python 3.10
-        uses: actions/setup-python@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
           pip install poetry
           make install
-      - name: Publish code coverage
+      - name: Run linter
+        run: make lint
+      - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v3.2.0
-        if: github.ref == 'refs/heads/main'
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
