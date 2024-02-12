@@ -98,5 +98,5 @@ def get_url_check(cur, url_id):
 @connect_to_db
 def truncate_db(curs):
     curs.execute('''
-            TRUNCATE urls, url_checks RESTART IDENTITY CASCADE
+            TRUNCATE urls, url_checks CASCADE
             ''')
