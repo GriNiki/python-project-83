@@ -37,7 +37,7 @@ def post_urls():
     url = request.form.get('url')
 
     if not validate(url):
-        flash("Некорректный URL", 'warning')
+        flash('Некорректный URL', 'warning')
         return render_template(
             'index.html',
             url=url,

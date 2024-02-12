@@ -17,13 +17,7 @@ Page Analyzer is an application that analyzes specified pages for SEO suitabilit
 #### Minimum requirements:
 This app works on Flask framework and uses Gunicorn as WSGI Web server, so you need to get them installed, as well as other dependencies:
 * python = "^3.10"
-* Flask = "^2.3.3"
-* psycopg2-binary = "^2.9.7"
-* validators = "^0.21.2"
-* python-dotenv = "^1.0.0"
-* requests = "^2.31.0"
-* beautifulsoup4 = "^4.12.2"
-* gunicorn = "^20.1.0"
+* poetry = "^1.4.2"
 ### Usage
 ***
 ##### Clone the repository using this command:
