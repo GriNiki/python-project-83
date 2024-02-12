@@ -5,7 +5,7 @@
 ### Hexlet tests and linter status:
 ***
 [![Actions Status](https://github.com/GriNiki/python-project-83/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/GriNiki/python-project-83/actions)
-[![Linter check](https://github.com/GriNiki/python-project-83/actions/workflows/linter-check.yml/badge.svg)](https://github.com/GriNiki/python-project-83/actions/workflows/linter-check.yml)
+[![test_app](https://github.com/GriNiki/python-project-83/actions/workflows/test_app.yml/badge.svg)](https://github.com/GriNiki/python-project-83/actions/workflows/test_app.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/9570581a53bece609922/maintainability)](https://codeclimate.com/github/GriNiki/python-project-83/maintainability)
 ***
 ## About
