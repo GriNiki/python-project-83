@@ -1,27 +1,21 @@
 name: Test App
-
 on:
-  push:
-    branches: [ main ]
-
+  - push
+env:
+  SECRET_KEY: ${{ secrets.SECRET_KEY }}
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: [3.10.12]
-
-    env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      SECRET_KEY: ${{ secrets.SECRET_KEY }}
-
     steps:
       - uses: actions/checkout@v3
-      - name: Setup Python ${{ matrix.python-version }}
+      - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-
       - name: Set up Postgresql
         uses: harmon758/postgresql-action@v1
         with:
@@ -29,23 +23,22 @@ jobs:
           postgresql db: postgres
           postgresql user: postgres
           postgresql password: postgres
-
       - name: Start Postgresql
         run: sudo systemctl start postgresql
-
-      - name: Install poetry and dependencies
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install poetry
+          pip install pytest
+          pip install flake8
           make install
-
-      - name: Run linter and pytest
+      - name: Lint
         run: |
+          pip install pytest-cov
+          make test
           make lint
-          make pytest
-
-      - name: Test coverage
-        uses: paambaati/codeclimate-action@v3.1.1
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v3.2.0
         if: github.ref_name == 'main'
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
