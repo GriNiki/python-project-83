@@ -22,6 +22,7 @@ jobs:
           pip install poetry
           pip install pytest
           pip install flake8
+          make install
       - name: Lint
         run: |
           pip install pytest-cov
