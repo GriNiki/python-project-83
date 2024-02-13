@@ -61,15 +61,16 @@ class TestApp:
     def test_check_url(self, url, flashed_message):
 
         self.client.post('/urls', data={'url': url})
-        response = self.client.post('/urls/1/checks')
 
         if url == 'https://www.wrong.ru':
+            response = self.client.post('/urls/2/checks')
             assert response.status_code == 302
-            response = self.client.get('/urls/1')
+            response = self.client.get('/urls/2')
             data = response.data.decode('utf-8')
             assert flashed_message in data
 
         else:
+            response = self.client.post('/urls/1/checks')
             assert response.status_code == 302
             response = self.client.get('/urls/1')
             data = response.data.decode('utf-8')
@@ -80,5 +81,5 @@ class TestApp:
             assert 'Авторские программы обучения с практикой и готовыми проектами в резюме.' in data
 
     def teardown(self):
-        truncate_db()
+        # truncate_db()
         pass
