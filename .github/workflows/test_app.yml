@@ -20,9 +20,9 @@ jobs:
         uses: harmon758/postgresql-action@v1
         with:
           postgresql version: '14'
-          postgresql db: postgres
+          postgresql db: page_analyzer
           postgresql user: postgres
-          postgresql password: postgres
+          postgresql password: password1
       - name: Start Postgresql
         run: sudo systemctl start postgresql
       - name: Install dependencies
@@ -32,7 +32,7 @@ jobs:
           pip install pytest
           pip install flake8
           make install
-      - name: Lint
+      - name: Lint & Test
         run: |
           pip install pytest-cov
           make test
