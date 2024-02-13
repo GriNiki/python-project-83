@@ -7,6 +7,7 @@
 [![Actions Status](https://github.com/GriNiki/python-project-83/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/GriNiki/python-project-83/actions)
 [![test_app](https://github.com/GriNiki/python-project-83/actions/workflows/test_app.yml/badge.svg)](https://github.com/GriNiki/python-project-83/actions/workflows/test_app.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/9570581a53bece609922/maintainability)](https://codeclimate.com/github/GriNiki/python-project-83/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/9570581a53bece609922/test_coverage)](https://codeclimate.com/github/GriNiki/python-project-83/test_coverage)
 ***
 ## About
 ***
