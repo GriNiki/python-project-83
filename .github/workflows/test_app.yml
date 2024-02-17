@@ -30,10 +30,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install poetry
           make build
-      - name: Lint & Test
+      - name: Lint
         run: |
-          pip install pytest-cov
-          make test
           make lint
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v3.2.0
